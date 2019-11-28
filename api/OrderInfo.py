@@ -81,9 +81,15 @@ class MyOrderInfo(object):
 
     def set_transaction(self, trans_type):
         if trans_type == 'plus':
-            self.transaction = round(self.transaction + self.dealAmount * self.avgPrice, 3)
+            if TRADE_TYPE == TradeType.SPOT:
+                self.transaction = round(self.transaction + self.dealAmount * self.avgPrice, 3)
+            else:
+                self.transaction = self.transaction + self.dealAmount * 10
         else:
-            self.transaction = round(self.transaction - self.dealAmount * self.avgPrice, 3)
+            if TRADE_TYPE == TradeType.SPOT:
+                self.transaction = round(self.transaction - self.dealAmount * self.avgPrice, 3)
+            else:
+                self.transaction = self.transaction - self.dealAmount * 10
 
     def get_buy_amount(self, price, accuracy=2):
         return round(self.transaction / price, accuracy)
