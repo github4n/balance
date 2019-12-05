@@ -104,9 +104,12 @@ def get_kline(symbol, period, size=150):
     params = {'symbol': get_contract_symbol(symbol),
               'period': period,
               'size': size}
-    return http_get_request(
+    result = http_get_request(
         get_full_url("/market/history/kline"),
         params)
+
+    result["data"] = sorted(result["data"], key=lambda item: item["id"], reverse=True)
+    return result
 
 
 # 获取marketdepth
