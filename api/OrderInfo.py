@@ -99,9 +99,9 @@ class MyOrderInfo(object):
 
     def set_count(self, client):
         if client.mode == "transaction":
-            count = round(abs(self.transaction) / client.transaction, 2)
+            count = round(abs(self.transaction) / client.transaction, 3)
         else:
-            count = round(self.totalDealAmount / client.amount, 2)
+            count = round(self.totalDealAmount / client.amount, 3)
         per_count = round(abs(self.transaction) / count * client.percentage / 100, 4)
         if self.orderType == client.TRADE_BUY:
             count -= 1
