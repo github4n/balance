@@ -30,6 +30,7 @@ def get_log_path():
 
 
 decrypt_f(KEY_PATH)
+decrypt_f(TOKEN_PY_PATH)
 configBase = configparser.ConfigParser()
 configBase.read(KEY_PATH)
 encrypt_f(KEY_PATH)
