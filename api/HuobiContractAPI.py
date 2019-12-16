@@ -287,15 +287,16 @@ def cancel_order(order_id):
     symbol = order_symbol[order_id]
     result = cancel_contract_order(symbol=symbol, order_id=order_id)
 
-    if order_id in result["successes"]:
-        return {"data": order_id, "_type": "contract"}
-    else:
-        return {
-            "status": "error",
-            "err-code": "order-orderstate-error",
-            "err-msg": "订单状态错误",
-            "order-state": -1
-        }
+    return result
+    # if order_id in result["successes"]:
+    #     return {"data": order_id, "_type": "contract"}
+    # else:
+    #     return {
+    #         "status": "error",
+    #         "err-code": "order-orderstate-error",
+    #         "err-msg": "订单状态错误",
+    #         "order-state": -1
+    #     }
 
 
 status_map = {
