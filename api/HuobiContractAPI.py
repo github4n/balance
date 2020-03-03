@@ -11,7 +11,7 @@ import time
 import math
 from util.HuobiUtils import *
 from module.CfEnv import TRADE_LIMIT, TRADE_LEVEL
-
+from module.Logger import logger
 order_symbol = {}
 
 
@@ -243,8 +243,9 @@ def send_order(acct_id, amount, symbol, _type, price=0):
                                          lever_rate,
                                          order_price_type)
         except Exception as e:
-            print(str(e))
+            logger.error(str(e))
             raise e
+        logger.info(result)
         order_symbol[str(result["data"]["order_id"])] = contract_symbol
         if "ok" == result["status"]:
             if direction == "buy":
