@@ -107,6 +107,7 @@ class HuobiProClient(object):
         except Exception as e:
             logger.error("***send_order:%s" % e)
             send_msg("%s:send_order failed:%s" % (my_order_info.symbol, e))
+            exit()
             result = self.check_order_list(my_order_info)
         if result is not None and result.get('status') == 'ok':
             logger_join("OrderId", result['data'], my_order_info.symbol, my_order_info.orderType, my_order_info.price,
