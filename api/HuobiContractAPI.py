@@ -12,6 +12,7 @@ import math
 from util.HuobiUtils import *
 from module.CfEnv import TRADE_LIMIT, TRADE_LEVEL
 from module.Logger import logger
+
 order_symbol = {}
 
 
@@ -236,15 +237,12 @@ def send_order(acct_id, amount, symbol, _type, price=0):
     # amount = math.ceil(amount * price / 10)
     amount = math.ceil(amount)
     if security.get_volume() <= TRADE_LIMIT:
-        try:
-            result = send_contract_order(contract_symbol, contract_type, contract_code, "", price, amount,
-                                         direction,
-                                         offset,
-                                         lever_rate,
-                                         order_price_type)
-        except Exception as e:
-            logger.error(str(e))
-            raise e
+        result = send_contract_order(contract_symbol, contract_type, contract_code, "", price, amount,
+                                     direction,
+                                     offset,
+                                     lever_rate,
+                                     order_price_type)
+        logger.info(contract_symbol, contract_type, price, amount)
         logger.info(result)
         order_symbol[str(result["data"]["order_id"])] = contract_symbol
         if "ok" == result["status"]:
