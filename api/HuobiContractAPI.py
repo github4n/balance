@@ -242,7 +242,6 @@ def send_order(acct_id, amount, symbol, _type, price=0):
                                      offset,
                                      lever_rate,
                                      order_price_type)
-        logger.info(contract_symbol, contract_type, price, amount)
         logger.info(result)
         order_symbol[str(result["data"]["order_id"])] = contract_symbol
         if "ok" == result["status"]:
