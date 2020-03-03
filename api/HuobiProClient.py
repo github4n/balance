@@ -38,7 +38,7 @@ class HuobiProClient(object):
     FILLED_STATUS = 'filled'
 
     MIN_AMOUNT = 0.1
-    ACCURACY = 2
+    ACCURACY = 4
     TRADE_WAIT_COUNT = 1
 
     # trade params

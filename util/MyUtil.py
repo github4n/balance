@@ -48,14 +48,17 @@ def write_log(text=""):
             with open(log_path) as f:
                 old_f.writelines(f.readlines()[::-1])
             # write count
-            symbols = json.loads(config.get("trade", "symbol"))
-            for symbol in symbols:
-                cfg_field = symbol + "-stat"
-                sum_count = 0
-                try:
-                    sum_count = sum(json.loads(config.get(cfg_field, "count")))
-                except Exception as err:
-                    logger.error("Error: write_log,{}".format(err))
-                old_f.writelines(symbol + " [" + str(sum_count) + "]")
+            try:
+                symbols = json.loads(config.get("trade", "symbol"))
+                for symbol in symbols:
+                    cfg_field = symbol + "-stat"
+                    sum_count = 0
+                    try:
+                        sum_count = sum(json.loads(config.get(cfg_field, "count")))
+                    except Exception as err:
+                        logger.error("Error: write_log,{}".format(err))
+                    old_f.writelines(symbol + " [" + str(sum_count) + "]")
+            except Exception as err:
+                logger.error("Error: write_log,{}".format(err))
         with open(log_path, 'w') as f:
             f.write(text)
