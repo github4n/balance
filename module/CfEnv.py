@@ -55,6 +55,7 @@ except configparser.NoOptionError:
 
 try:
     TRADE_LIMIT = int(config.get("trade", "limit"))
+    logger_join("FUTURE TRADE LIMIT", TRADE_LIMIT)
 except configparser.NoOptionError:
     logger_join("DEFAULT TRADE LIMIT", TRADE_LIMIT)
 
