@@ -311,13 +311,16 @@ class HuobiProClient(object):
     def get_line_data(cls, data):
         return [data.get('open'), data.get('high'), data.get('low'), data.get('close'), data.get('amount')]
 
-    def get_klines(self, symbol, period, size):
+    def get_klines(self, symbol, period, size, count=1):
         result = {}
         try:
             result = self.API.get_kline(symbol, period, size)
         except Exception as e:
             logger.error("***get_kline:%s" % e)
+        finally:
+            count += 1
         if result is not None and result.get('status') == 'ok':
             self.kline_data = list(map(self.get_line_data, result.get('data')))
         else:
-            self.get_klines(symbol, period, size)
+            if count < 10:
+                self.get_klines(symbol, period, size, count)
